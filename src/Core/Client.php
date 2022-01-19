@@ -79,7 +79,7 @@ abstract class Client{
 	 * @param string $uri
 	 * @param array $requestOptions
 	 * @return array
-	 * @throws HttpException
+	 * @throws HttpException|\Exception
 	 */
 	protected function send($uri, $requestOptions = []){
 		$this->method = $requestOptions['method'];
@@ -100,15 +100,13 @@ abstract class Client{
 			$header_arr[] = 'Authorization: Bearer '.$this->access_token;
 		}
 		
-		$this->response_code = '';
 		switch($this->method){
 			case self::METHOD_GET:
 				$opt = array(
 					CURLOPT_HTTPHEADER     => $header_arr,
 				);
 				
-				$this->client_response = Curl::execute($this->url,$opt);
-				break;
+				return $this->execute($this->url,$opt);
 			case self::METHOD_POST:
 				$data = [];
 				if($requestOptions['json']){
@@ -120,9 +118,16 @@ abstract class Client{
 					CURLOPT_HTTPHEADER     => $header_arr,
 					CURLOPT_POSTFIELDS     => $data,
 				);
-				$this->client_response = Curl::execute($this->url,$opt);
-				break;
+				return $this->execute($this->url,$opt);
+			default :
+				throw new \Exception('Not support method :'.$this->method);
 		}
+		
+	}
+	
+	public function execute($url,$opt){
+		$this->response_code = '';
+		$this->client_response = Curl::execute($url,$opt);
 		list($response_body,$response_code) = $this->client_response;
 		$this->response_code = $response_code;
 		

@@ -37,7 +37,8 @@ abstract class Curl{
 		$opt = array(
 			CURLOPT_FOLLOWLOCATION => 1,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HEADER => true,
+			CURLOPT_HEADER         => true,
+			CURLOPT_TIMEOUT        => self::DEFAULT_TIMEOUT,
 		);
 		
 		if($ssl){
@@ -57,30 +58,6 @@ abstract class Curl{
 		}
 		return $curl;
 	}
-	
-	
-	
-	/**
-	 * @param string $url
-	 * @param mixed $data
-	 * @param array $curl_option
-	 * @throws HttpException
-	 * @return array
-	 */
-	public static function post($url, $data, $curl_option=array()) {
-		if($data && !is_string($data)){
-			$data = http_build_query($data);
-		}
-		$opt = array(
-			CURLOPT_POST           => true,
-			CURLOPT_POSTFIELDS     => $data,
-			CURLOPT_TIMEOUT        => self::DEFAULT_TIMEOUT,
-			CURLOPT_RETURNTRANSFER => 1,
-		);
-		$curl_option = self::arrayMergeKeepKeys($opt, $curl_option);
-		return self::execute($url, $curl_option);
-	}
-	
 	
 	/**
 	 * @param string $url

@@ -4,7 +4,7 @@
 
 include '.config.php';
 
-$cred = new \Cdiscount\Core\Token();
+$cred = new \Cdiscount\Api\Token();
 $cred->setClientId($options['client_id']);
 $cred->setClientSecret($options['client_secret']);
 $token = $cred->getAccessToken();
