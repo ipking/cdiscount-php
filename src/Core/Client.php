@@ -99,7 +99,7 @@ abstract class Client{
 		if($this->access_token){
 			$header_arr[] = 'Authorization: Bearer '.$this->access_token;
 		}
-		
+		$this->response_code = '';
 		switch($this->method){
 			case self::METHOD_GET:
 				$opt = array(
@@ -125,7 +125,13 @@ abstract class Client{
 		
 	}
 	
-	public function execute($url,$opt){
+	/**
+	 * @param string $url
+	 * @param array $opt
+	 * @return array|mixed
+	 * @throws HttpException
+	 */
+	public function execute($url, $opt){
 		$this->response_code = '';
 		$this->client_response = Curl::execute($url,$opt);
 		list($response_body,$response_code) = $this->client_response;
