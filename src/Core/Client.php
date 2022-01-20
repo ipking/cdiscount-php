@@ -8,6 +8,7 @@ abstract class Client{
 	
 	const METHOD_GET = 'GET';
 	const METHOD_POST = 'POST';
+	const METHOD_PATCH = 'PATCH';
 	
 	protected static $callback;
 	
@@ -82,7 +83,7 @@ abstract class Client{
 	 * @throws HttpException|\Exception
 	 */
 	protected function send($uri, $requestOptions = []){
-		$this->method = $requestOptions['method'];
+		$this->method = strtoupper($requestOptions['method']);
 		$this->url = self::URI_API.$uri;
 		
 		if (isset($requestOptions['query'])) {
@@ -115,6 +116,18 @@ abstract class Client{
 				}
 				$opt = array(
 					CURLOPT_POST           => true,
+					CURLOPT_HTTPHEADER     => $header_arr,
+					CURLOPT_POSTFIELDS     => $data,
+				);
+				return $this->execute($this->url,$opt);
+			case self::METHOD_PATCH:
+				$data = [];
+				if($requestOptions['json']){
+					$data = json_encode($requestOptions['json']);
+					$header_arr[] = 'Content-Type: application/json';
+				}
+				$opt = array(
+					CURLOPT_CUSTOMREQUEST  => self::METHOD_PATCH,
 					CURLOPT_HTTPHEADER     => $header_arr,
 					CURLOPT_POSTFIELDS     => $data,
 				);

@@ -26,7 +26,7 @@ class Orders extends Client {
 	public function validateOrder($order_number,$body = [])
 	{
 		return $this->send("/OrderManagement/orders/".$order_number."/validate", [
-			'method' => 'POST',
+			'method' => 'PATCH',
 			'json' => $body
 		]);
 	}
