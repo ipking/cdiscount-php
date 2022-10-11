@@ -8,13 +8,13 @@ class Orders extends Client {
 
 	/**
 	* Operation searchOrders
-	* @param array $body
+	* @param array $query
 	*/
-	public function searchOrders($body = [])
+	public function searchOrders($query = [])
 	{
-		return $this->send("/OrderManagement/orders/search", [
-		  'method' => 'POST',
-		  'json' => $body
+		return $this->send("/orders", [
+			'method' => 'GET',
+			'query' => $query
 		]);
 	}
 	
@@ -25,8 +25,8 @@ class Orders extends Client {
 	 */
 	public function validateOrder($order_number,$body = [])
 	{
-		return $this->send("/OrderManagement/orders/".$order_number."/validate", [
-			'method' => 'PATCH',
+		return $this->send("/orders/".$order_number."/shipments", [
+			'method' => 'POST',
 			'json' => $body
 		]);
 	}

@@ -7,40 +7,26 @@ use Cdiscount\Core\Client;
 class Finances extends Client {
 
 	/**
-	* Operation getSellerPayments
+	* Operation getPayments
+	* @param array $query
 	*/
-	public function getSellerPayments()
+	public function getPayments($query = [])
 	{
-		return $this->send("/FinanceManagement/seller-payments", [
+		return $this->send("/payments", [
 		  'method' => 'GET',
+		  'query' => $query,
 		]);
 	}
 	
 	/**
-	 * Operation searchesSellerPayments
-	 * @param array $queryParams
-	 * @param array $body
+	 * Operation getOperations
+	 * @param array $query
 	 */
-	public function searchesSellerPayments($queryParams = [],$body = [])
+	public function getOperations($query = [])
 	{
-		return $this->send("/FinanceManagement/seller-payments/search", [
-			'method' => 'POST',
-			'query' => $queryParams,
-			'json' => $body,
-		]);
-	}
-	
-	/**
-	 * Operation searchesSellerPaymentsDetails
-	 * @param array $queryParams
-	 * @param array $body
-	 */
-	public function searchesSellerPaymentsDetails($queryParams = [],$body = [])
-	{
-		return $this->send("/FinanceManagement/seller-payments-details/search", [
-			'method' => 'POST',
-			'query' => $queryParams,
-			'json' => $body,
+		return $this->send("/operations", [
+			'method' => 'GET',
+			'query' => $query,
 		]);
 	}
 }

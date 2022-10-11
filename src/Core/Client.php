@@ -4,7 +4,7 @@ namespace Cdiscount\Core;
 
 abstract class Client{
 	
-	const URI_API = 'https://api.octopia-io.net';
+	const URI_API = 'https://api.octopia-io.net/seller/v2';
 	
 	const METHOD_GET = 'GET';
 	const METHOD_POST = 'POST';
@@ -66,13 +66,6 @@ abstract class Client{
 	 */
 	public function setSellerId($seller_id){
 		$this->seller_id = $seller_id;
-	}
-	
-	/**
-	 * @param $subscription_key
-	 */
-	public function setSubscriptionKey($subscription_key){
-		$this->subscription_key = $subscription_key;
 	}
 
 	

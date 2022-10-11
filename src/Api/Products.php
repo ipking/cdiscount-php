@@ -8,11 +8,13 @@ class Products extends Client {
 
   /**
   * Operation getCategories
+   * @param array $query
   */
-  public function getCategories()
+  public function getCategories($query=[])
   {
-    return $this->send("/productManagement/categories", [
-      'method' => 'GET'
+    return $this->send("/categories", [
+      'method' => 'GET',
+	   'query' => $query
     ]);
   }
 

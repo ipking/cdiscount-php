@@ -16,12 +16,12 @@ if(!$cred->isSuccess()){
 $api = new \Cdiscount\Api\Orders();
 $api->setAccessToken($token['access_token']);
 $api->setSellerId($options['seller_id']);
-$api->setSubscriptionKey($options['order_subscription_key']);
 
 $data = [
-	'fetch_order_lines'  => true,
-	'begin_modification_date'  => "2021-01-11T09:00:00",
-	'end_modification_date' => "2022-01-01T09:00:00",
+	'pageIndex'=>1,
+	'pageSize'=>10,
+	'updatedAtMin'  => "2021-01-11T09:00:00",
+	'updatedAtMax' => "2022-01-01T09:00:00",
 ];
 
 $rsp = $api->searchOrders($data);
@@ -32,10 +32,8 @@ if(!$api->isSuccess()){
 print_r($rsp);
 
 
-
 $data = [
-	'fetch_order_lines'  => true,
-	'order_reference_list'  => ["2012011232REKPX"]
+	'reference'=>'2101011234THLDJ',
 ];
 
 $rsp = $api->searchOrders($data);
@@ -46,20 +44,16 @@ if(!$api->isSuccess()){
 print_r($rsp);
 
 
-
-
 $data = [
-	'tracking_number'  => '',
-	'carrier_name'  => '',
-	'tracking_url'  => '',
-	'order_line_list'  => [
-		['seller_product_id'=>''],
-		['seller_product_id'=>''],
-		['seller_product_id'=>''],
+	'parcelNumber'  => '34GFRTG43',
+	'carrierName'  => 'Chronopost',
+	'trackingUrl'  => 'www.trackingUrl.com/34GFRTG43',
+	'orderLineIds'  => [
+		"EO7E"
 	],
 ];
 
-$rsp = $api->validateOrder('2012011232REKPX',$data);
+$rsp = $api->validateOrder('2101011234THLDJ',[$data]);
 if(!$api->isSuccess()){
 	print_r($rsp);
 	die();

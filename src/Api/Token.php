@@ -6,7 +6,7 @@ namespace Cdiscount\Api;
 use Cdiscount\Core\Client;
 
 class Token extends Client{
-	const URI_API = 'https://oauth2.cdiscount.com/auth/realms/maas-international-sellers/protocol/openid-connect/token';
+	const URI_API = 'https://auth.octopia.com/auth/realms/maas/protocol/openid-connect/token';
 	
     private $client_id;
     private $client_secret;

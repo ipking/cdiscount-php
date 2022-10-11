@@ -15,15 +15,17 @@ if(!$cred->isSuccess()){
 $api = new \Cdiscount\Api\Offers();
 $api->setAccessToken($token['access_token']);
 $api->setSellerId($options['seller_id']);
-$api->setSubscriptionKey($options['offer_subscription_key']);
 
-$data = [
-	"sort_order" => "BySoldQuantityDescending",
-	"state_filter"=> "AllOffersOnly",
-	"condition_filter" => "NewOffersOnly"
+$query = [
+	'$limit' => 1,
+	'$page' => 10,
 ];
 
-$rsp = $api->searchOffers($data);
+$json = [
+    "condition_filter"=> "NewOffersOnly"
+];
+
+$rsp = $api->searchOffers($query,$json);
 if(!$api->isSuccess()){
 	print_r($rsp);
 	die();

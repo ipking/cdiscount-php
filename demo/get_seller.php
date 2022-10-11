@@ -16,7 +16,6 @@ if(!$cred->isSuccess()){
 $api = new \Cdiscount\Api\Sellers();
 $api->setAccessToken($token['access_token']);
 $api->setSellerId($options['seller_id']);
-$api->setSubscriptionKey($options['seller_subscription_key']);
 
 $rsp = $api->getSellerInformation();
 if(!$api->isSuccess()){

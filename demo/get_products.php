@@ -15,10 +15,14 @@ if(!$cred->isSuccess()){
 $api = new \Cdiscount\Api\Products();
 $api->setAccessToken($token['access_token']);
 $api->setSellerId($options['seller_id']);
-$api->setSubscriptionKey($options['product_subscription_key']);
 
 
-$rsp = $api->getCategories();
+$data = [
+	'pageIndex'=>1,
+	'pageSize'=>10,
+];
+
+$rsp = $api->getCategories($data);
 if(!$api->isSuccess()){
 	print_r($rsp);
 	die();

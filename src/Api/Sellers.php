@@ -11,7 +11,7 @@ class Sellers extends Client {
   */
   public function getSellerInformation()
   {
-    return $this->send("/sellerManagement/sellers", [
+    return $this->send("/sellers", [
       'method' => 'GET',
     ]);
   }

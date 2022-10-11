@@ -16,28 +16,15 @@ if(!$cred->isSuccess()){
 $api = new \Cdiscount\Api\Finances();
 $api->setAccessToken($token['access_token']);
 $api->setSellerId($options['seller_id']);
-$api->setSubscriptionKey($options['finance_subscription_key']);
-
-$rsp = $api->getSellerPayments();
-
-print_r($rsp);
 
 $query = [
-	'$limit' => 1,
-	'$page' => 2,
+	'pageIndex'=>1,
+	'pageSize'=>10,
+	'paidAtMin'=>"2021-11-11T09:00:00",
+	'paidAtMax'=>"2022-01-11T09:00:00",
 ];
+$rsp = $api->getPayments($query);
 
-$data = [
-	"states"=> [
-		"NotPayable",
-		"InProcess"
-	],
-    "start_date"=> "2021-01-01T09:06:50.062Z",
-    "end_date"=> "2021-12-12T09:06:50.062Z"
-];
-
-
-$rsp = $api->searchesSellerPayments($query,$data);
 if(!$api->isSuccess()){
 	print_r($rsp);
 	die();
@@ -45,16 +32,15 @@ if(!$api->isSuccess()){
 print_r($rsp);
 
 $query = [
-	'$limit' => 1,
-	'$page' => 1,
+	'pageIndex'=>1,
+	'pageSize'=>10,
+	'paidAtMin'=>"2021-11-11T09:00:00",
+	'paidAtMax'=>"2022-02-11T09:00:00",
+	//"orderReference"=>"2101011234THLDJ"
 ];
 
-$data = [
-	"order_number"=> "2201101938B7FU8"
-];
 
-
-$rsp = $api->searchesSellerPaymentsDetails($query,$data);
+$rsp = $api->getOperations($query);
 if(!$api->isSuccess()){
 	print_r($rsp);
 	die();
