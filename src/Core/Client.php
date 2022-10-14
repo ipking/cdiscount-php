@@ -139,6 +139,7 @@ abstract class Client{
 	 */
 	public function execute($url, $opt){
 		$this->response_code = '';
+		$this->post_data = $opt[CURLOPT_POSTFIELDS]?:'';
 		$this->client_response = Curl::execute($url,$opt);
 		list($response_body,$response_code) = $this->client_response;
 		$this->response_code = $response_code;
